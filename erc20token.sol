@@ -1,8 +1,9 @@
 /**
+ *  Micin Token - The Utility of Memes
  *  Created By: Micin Dev Team
  *  Website: https://micintoken.github.io
  *  Telegram: https://t.me/micintoken
- *  The Best Tool for Token Presale
+ *  Twitter: https://twitter.com/micinofficial
  **/
 
 
@@ -763,19 +764,19 @@ contract MICIN is MicinToken {
         }
 
         swapFee -= lpFee;
-        uint256 fistBalance = 0;
-        uint256 lpFist = 0;
+        uint256 micinBalance = 0;
+        uint256 lpMicin = 0;
         uint256 fundAmount = 0;
         if (currencyIsEth) {
-            fistBalance = address(this).balance;
-            lpFist = (fistBalance * lpFee) / swapFee;
-            fundAmount = fistBalance - lpFist;
+            micinBalance = address(this).balance;
+            lpMicin = (micinBalance * lpFee) / swapFee;
+            fundAmount = micinBalance - lpMicin;
             if (fundAmount > 0 && fundAddress != address(0)) {
                 payable(fundAddress).transfer(fundAmount);
             }
-            if (lpAmount > 0 && lpFist > 0) {
+            if (lpAmount > 0 && lpMicin > 0) {
                 // add the liquidity
-                try _swapRouter.addLiquidityETH{value: lpFist}(
+                try _swapRouter.addLiquidityETH{value: lpMicin}(
                     address(this),
                     lpAmount,
                     0,
@@ -785,33 +786,33 @@ contract MICIN is MicinToken {
                 ) {} catch { emit Failed_AddLiquidityETH(); }
             }
         } else {
-            IERC20 FIST = IERC20(currency);
-            fistBalance = FIST.balanceOf(address(_tokenDistributor));
-            lpFist = (fistBalance * lpFee) / swapFee;
-            fundAmount = fistBalance - lpFist;
+            IERC20 MICIN = IERC20(currency);
+            micinBalance = MICIN.balanceOf(address(_tokenDistributor));
+            lpMicin = (micinBalance * lpFee) / swapFee;
+            fundAmount = micinBalance - lpMicin;
 
-            if (lpFist > 0) {
-                FIST.transferFrom(
+            if (lpMicin > 0) {
+                MICIN.transferFrom(
                     address(_tokenDistributor),
                     address(this),
-                    lpFist
+                    lpMicin
                 );
             }
 
             if (fundAmount > 0) {
-                FIST.transferFrom(
+                MICIN.transferFrom(
                     address(_tokenDistributor),
                     fundAddress,
                     fundAmount
                 );
             }
 
-            if (lpAmount > 0 && lpFist > 0) {
+            if (lpAmount > 0 && lpMicin > 0) {
                 try _swapRouter.addLiquidity(
                     address(this),
                     currency,
                     lpAmount,
-                    lpFist,
+                    lpMicin,
                     0,
                     0,
                     fundAddress,
