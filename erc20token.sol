@@ -3,7 +3,7 @@
  *  Created By: Micin Dev Team
  *  Website: https://micintoken.github.io
  *  Telegram: https://t.me/micintoken
- *  Twitter: https://twitter.com/micinofficial
+ *  Twitter: https://twitter.com/tokenmicin
  **/
 
 
